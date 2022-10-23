@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33006.217
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bloodlust", "Bloodlust\Bloodlust.csproj", "{03F7C239-F368-4AA2-8EFA-184FCD5BC653}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{03F7C239-F368-4AA2-8EFA-184FCD5BC653}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03F7C239-F368-4AA2-8EFA-184FCD5BC653}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03F7C239-F368-4AA2-8EFA-184FCD5BC653}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03F7C239-F368-4AA2-8EFA-184FCD5BC653}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8BCD2028-BEAD-463E-8ADE-242CE6961C22}
+	EndGlobalSection
+EndGlobal
