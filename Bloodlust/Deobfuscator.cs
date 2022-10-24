@@ -3,6 +3,7 @@
 global using KeyType = EnumPublicSealedvaBLREYECAQUCARO12CAUnique;
 global using EndingType = EnumPublicSealedvaALBATIQU5vUnique;
 global using MessageTarget = EnumPublicSealedvaOtAlSe5vSeUnique;
+global using LobbyPlayerState = EnumPublicSealedvaNORELOLESEGASCMA9vUnique;
 global using PlayerController = ObjectPublicObLi1PlInPlInObLi1Unique;
 
 global using HoloNetMessenger = ObjectPublicDoBoObBoUnique;
@@ -16,7 +17,31 @@ global using KeyPickedUpMessage = Object2PublicKeObKeUnique;
 global using KeycardDoorUnlockedMessage = Object2PublicIn31Ob31InObVo31InObUnique;
 global using LockUnlockedMessage = Object2Public3150PlObVo50PlObPl50Unique;
 global using UpdateMatchSettingsMessage = Object2PublicMaUnique;
-
+global using LobbyPlayerInfoSyncMessage = Object2PublicObObObUnique;
+global using LobbyPlayerStateSyncMessage = Object2Public60ObVo60Ob60Ob60Ob60Unique;
+global using SpawnActorMessage = Object2PublicStObObUnique; // ???
+global using PlayerJumpMessage = Object3PublicVo145;
+global using PlayerLandMessage = Object2PublicSiObVoSiObSiObSiObSi1;
+global using DropInventoryItemMessage = Object2Public23ObVo23Ob23Ob23Ob23Unique;
+global using SwitchInventorySlotMessage = Object2PublicInObVoInObInObInObIn1;
+global using TakeInventoryItemMessage = Object2PublicObInInUnique;
+global using InventoryItemThrowAnimationMessage = Object3PublicVo94;
+global using InventoryItemThrowAnimationCancellationMessage = Object3PublicVo96;
+global using FlashlightOnMessage = Object3PublicVo87;
+global using FlashlightOffMessage = Object3PublicVo88;
+global using DoorOpenMessage = Object2PublicSiObPlUnique;
+global using MoveableObjectCloseMessage = Object3PublicVo113;
+global using MoveableObjectOpenMessage = Object3PublicVo112;
+global using LightSwitchToggleMessage = Object3PublicVo118;
+global using ThrowableItemApplyForceMessage = Object2PublicVeDoVeUnique;
+global using LampToggleMessage = Object3PublicVo76;
+global using GlueBottleBreakMessage = Object2PublicVeSiVeUnique;
+global using WindowBreakMessage = Object2PublicVeVoVeObObVeObVeObVeUnique;
+global using ConsumeConsumableItemMessage = Object3PublicVo90;
+global using PlayerApplyBuffMessage = Object2PublicSeUnique;
+global using PlayerDeactiveBuffMessage = Object2PublicInObUnique;
+global using AnimateSecretDoorMessage = Object2PublicVeObPlUnique;
+global using PlayerPickUpResourceMessage = Object2Public31InObVoInObInObInOb0;
 
 using HoloNetwork.NetworkObjects;
 
