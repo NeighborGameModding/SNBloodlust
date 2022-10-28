@@ -35,8 +35,8 @@
       <HintPath>References\UnityEngine.IMGUIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UniverseLib.IL2CPP">
-      <HintPath>..\..\..\Programs\Steam\steamapps\common\Secret Neighbor\UserLibs\UniverseLib.IL2CPP.dll</HintPath>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>References\UnityEngine.JSONSerializeModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

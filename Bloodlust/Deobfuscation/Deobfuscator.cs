@@ -10,7 +10,10 @@ global using ActorType = EnumPublicSealedvaEXNECUSPITAN8vNEUnique;
 global using PlayerController = ObjectPublicObLi1PlInPlInObLi1Unique;
 global using NetworkAdapterController = ObjectPublicOb8459Ob617057205817Unique;
 global using PlayfabBackendAdapter = ObjectPublicStObStDi2SiObDi2StUnique;
-global using UpdateUserDataRequestResult = Object1PublicVo7;
+global using UpdateLoadoutRequestResult = Object1PublicVo7;
+global using Loadout = ObjectPublicAcLiAc1ObObObUnique;
+global using GetLoadoutRequestResult = Object1Public99VoUnique;
+global using LoadoutSerializer = h5ay7rju46La5doyt5jtndrdfjf;
 
 global using HoloNetMessenger = ObjectPublicDoBoObBoUnique;
 global using HoloNetGlobalMessage = Object1PublicObVoObObObObObObObObUnique;
@@ -61,6 +64,29 @@ internal static class DeobfuscatorExtensions
     {
         obj.Method_Public_Void_Object1PublicObBoObUnique_EnumPublicSealedva5v1_0(message, (OriginalMessageTarget)target);
     }
+
+    public static void SetResultReceived<T>(this T requestResult, Il2CppSystem.Action<T> callback) where T : ObjectPublicBoObStAc1TCBoUnique<T>
+    {
+        requestResult.field_Public_Action_1_TC_0 = callback;
+        requestResult.field_Public_Boolean_0 = true;
+        callback?.Invoke(requestResult);
+    }
+
+    public static void SetLoadoutResult(this GetLoadoutRequestResult requestResult, Loadout loadout, Il2CppSystem.Action<GetLoadoutRequestResult> callback)
+    {
+        requestResult.field_Public_ObjectPublicAcLiAc1ObObObUnique_0 = loadout;
+        requestResult.SetResultReceived(callback);
+    }
+
+    public static Loadout Unbox(this LoadoutSerializer serializer)
+    {
+        return serializer.Method_Public_ObjectPublicAcLiAc1ObObObUnique_PDM_0();
+    }
+
+    public static LoadoutSerializer Box(this Loadout loadout)
+    {
+        return LoadoutSerializer.Method_Public_Static_h5ay7rju46La5doyt5jtndrdfjf_ObjectPublicAcLiAc1ObObObUnique_0(loadout);
+    }
 }
 
 internal static class StaticDeobfuscator
@@ -77,7 +103,8 @@ internal static class StaticDeobfuscator
     {
         public const string InitializeMethod = nameof(PlayfabBackendAdapter.Method_Public_Virtual_Final_New_Void_2);
         public const string MelRepRequestMethod = nameof(PlayfabBackendAdapter.Method_Public_Virtual_Final_New_Object1PublicVo6_Action_1_Object1PublicVo6_3);
-        public const string UpdateUserDataRequestMethod = nameof(PlayfabBackendAdapter.Method_Public_Virtual_Final_New_Object1PublicVo7_ObjectPublicAcLiAc1ObObObUnique_Action_1_Object1PublicVo7_0);
+        public const string UpdateLoadoutRequestMethod = nameof(PlayfabBackendAdapter.Method_Public_Virtual_Final_New_Object1PublicVo7_ObjectPublicAcLiAc1ObObObUnique_Action_1_Object1PublicVo7_0);
+        public const string GetLoadoutRequestMethod = nameof(PlayfabBackendAdapter.Method_Public_Virtual_Final_New_Object1Public99VoUnique_Action_1_Object1Public99VoUnique_1);
     }
 
     public static class BloodyPreloadScreen
