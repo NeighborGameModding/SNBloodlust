@@ -47,8 +47,6 @@ global using AnimateSecretDoorMessage = Object2PublicVeObPlUnique;
 //global using PlayerPickUpResourceMessage = Object2Public31InObVoInObInObInOb0;
 
 using HoloNetwork.NetworkObjects;
-using Lib.Hologryph.HoloCore.Configuration;
-using System;
 using Bloodlust.Deobfuscation.Enums;
 
 namespace Bloodlust.Deobfuscation;
