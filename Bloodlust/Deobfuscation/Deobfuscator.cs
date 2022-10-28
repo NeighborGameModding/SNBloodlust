@@ -5,9 +5,12 @@ global using EndingType = EnumPublicSealedvaALBATIQU5vUnique;
 //global using LobbyPlayerState = EnumPublicSealedvaNORELOLESEGASCMA9vUnique;
 global using BackendType = EnumPublicSealedvaOFPL3vUnique;
 global using OriginalMessageTarget = EnumPublicSealedva5v1;
+global using ActorType = EnumPublicSealedvaEXNECUSPITAN8vNEUnique;
+
 global using PlayerController = ObjectPublicObLi1PlInPlInObLi1Unique;
 global using NetworkAdapterController = ObjectPublicOb8459Ob617057205817Unique;
 global using PlayfabBackendAdapter = ObjectPublicStObStDi2SiObDi2StUnique;
+global using UpdateUserDataRequestResult = Object1PublicVo7;
 
 global using HoloNetMessenger = ObjectPublicDoBoObBoUnique;
 global using HoloNetGlobalMessage = Object1PublicObVoObObObObObObObObUnique;
@@ -48,6 +51,7 @@ global using AnimateSecretDoorMessage = Object2PublicVeObPlUnique;
 
 using HoloNetwork.NetworkObjects;
 using Bloodlust.Deobfuscation.Enums;
+using Ui.Screens.Preload;
 
 namespace Bloodlust.Deobfuscation;
 
@@ -71,7 +75,13 @@ internal static class StaticDeobfuscator
 
     public static class BloodyPlayfabBackendAdapter
     {
+        public const string InitializeMethod = nameof(PlayfabBackendAdapter.Method_Public_Virtual_Final_New_Void_2);
         public const string MelRepRequestMethod = nameof(PlayfabBackendAdapter.Method_Public_Virtual_Final_New_Object1PublicVo6_Action_1_Object1PublicVo6_3);
         public const string UpdateUserDataRequestMethod = nameof(PlayfabBackendAdapter.Method_Public_Virtual_Final_New_Object1PublicVo7_ObjectPublicAcLiAc1ObObObUnique_Action_1_Object1PublicVo7_0);
+    }
+
+    public static class BloodyPreloadScreen
+    {
+        public const string OnLoadMethod = nameof(PreloadScreen.Method_Public_Virtual_Void_2);
     }
 }

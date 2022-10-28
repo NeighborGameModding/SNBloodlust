@@ -1,7 +1,6 @@
-﻿using Bloodlust.Features.General;
+﻿global using static MelonLoader.Melon<Bloodlust.BloodlustMod>;
+
 using Bloodlust.Menu;
-using HarmonyLib;
-using HoloNetwork.NetworkObjects;
 using MelonLoader;
 
 namespace Bloodlust;
@@ -10,7 +9,6 @@ public class BloodlustMod : MelonMod
 {
     public override void OnInitializeMelon()
     {
-        AntiPlayfab.Initialize();
         BloodlustMenu.Initialize();
     }
 }
