@@ -4,7 +4,10 @@ global using KeyType = EnumPublicSealedvaBLREYECAQUCARO12CAUnique;
 global using EndingType = EnumPublicSealedvaALBATIQU5vUnique;
 global using MessageTarget = EnumPublicSealedvaOtAlSe5vSeUnique;
 global using LobbyPlayerState = EnumPublicSealedvaNORELOLESEGASCMA9vUnique;
+global using BackendType = EnumPublicSealedvaOFPL3vUnique;
 global using PlayerController = ObjectPublicObLi1PlInPlInObLi1Unique;
+global using NetworkAdapterController = ObjectPublicOb8459Ob617057205817Unique;
+global using PlayfabBackendAdapter = ObjectPublicStObStDi2SiObDi2StUnique;
 
 global using HoloNetMessenger = ObjectPublicDoBoObBoUnique;
 global using HoloNetGlobalMessage = Object1Public6Vo66666666Unique;
@@ -44,10 +47,12 @@ global using AnimateSecretDoorMessage = Object2PublicVeObPlUnique;
 global using PlayerPickUpResourceMessage = Object2Public31InObVoInObInObInOb0;
 
 using HoloNetwork.NetworkObjects;
+using Lib.Hologryph.HoloCore.Configuration;
+using System;
 
 namespace Bloodlust;
 
-internal static class Deobfuscator
+internal static class DeobfuscatorExtensions
 {
     public static void SendMessage(this HoloNetObject obj, HoloNetObjectMessage message, MessageTarget target = MessageTarget.All)
     {
@@ -63,5 +68,11 @@ internal static class StaticDeobfuscator
         {
             HoloNetMessenger.Method_Public_Static_Void_Object1Public6Vo66666666Unique_EnumPublicSealedvaOtAlSe5vSeUnique_0(message, target);
         }
+    }
+
+    public static class PlayfabBackendAdapter
+    {
+        public const string MelRepRequestMethod = "Method_Public_Virtual_Final_New_Object1PublicVo6_Action_1_Object1PublicVo6_3";
+        public const string UpdateUserDataRequestMethod = "Method_Public_Virtual_Final_New_Object1PublicVo7_ObjectPublicAcLiAc1ObObObUnique_Action_1_Object1PublicVo7_0";
     }
 }
