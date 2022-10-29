@@ -1,5 +1,5 @@
 ﻿global using static MelonLoader.Melon<Bloodlust.BloodlustMod>;
-
+using Bloodlust.Features.MenuCategories;
 using Bloodlust.Menu;
 using MelonLoader;
 
@@ -10,5 +10,7 @@ public class BloodlustMod : MelonMod
     public override void OnInitializeMelon()
     {
         BloodlustMenu.Initialize();
+
+        LobbyList.Initialize();
     }
 }

@@ -6,6 +6,7 @@ global using EndingType = EnumPublicSealedvaALBATIQU5vUnique;
 global using BackendType = EnumPublicSealedvaOFPL3vUnique;
 global using OriginalMessageTarget = EnumPublicSealedva5v1;
 global using ActorType = EnumPublicSealedvaEXNECUSPITAN8vNEUnique;
+global using GameMode = EnumPublicSealedvaNOGALOMEPRGAMASHCRUnique;
 
 global using PlayerController = ObjectPublicObLi1PlInPlInObLi1Unique;
 global using NetworkAdapterController = ObjectPublicOb8459Ob617057205817Unique;
@@ -14,6 +15,8 @@ global using UpdateLoadoutRequestResult = Object1PublicVo7;
 global using Loadout = ObjectPublicAcLiAc1ObObObUnique;
 global using GetLoadoutRequestResult = Object1Public99VoUnique;
 global using LoadoutSerializer = h5ay7rju46La5doyt5jtndrdfjf;
+global using GameModeController = ObjectPublicDi2ObLiOb1AcCoAcBoUnique;
+global using Lobby = ObjectPublicStObInObBoBoInObBoObUnique;
 
 global using HoloNetMessenger = ObjectPublicDoBoObBoUnique;
 global using HoloNetGlobalMessage = Object1PublicObVoObObObObObObObObUnique;
@@ -55,6 +58,10 @@ global using AnimateSecretDoorMessage = Object2PublicVeObPlUnique;
 using HoloNetwork.NetworkObjects;
 using Bloodlust.Deobfuscation.Enums;
 using Ui.Screens.Preload;
+using AppControllers;
+using Ui.Screens.CustomGame;
+using GameModes.LobbyMode;
+using static MelonLoader.MelonLogger;
 
 namespace Bloodlust.Deobfuscation;
 
@@ -87,6 +94,11 @@ internal static class DeobfuscatorExtensions
     {
         return LoadoutSerializer.Method_Public_Static_h5ay7rju46La5doyt5jtndrdfjf_ObjectPublicAcLiAc1ObObObUnique_0(loadout);
     }
+
+    public static Lobby GetSelectedLobby(this CustomGameScreen cgs)
+    {
+        return cgs.field_Private_ObjectPublicStObInObBoBoInObBoObUnique_0;
+    }
 }
 
 internal static class StaticDeobfuscator
@@ -110,5 +122,20 @@ internal static class StaticDeobfuscator
     public static class BloodyPreloadScreen
     {
         public const string OnLoadMethod = nameof(PreloadScreen.Method_Public_Virtual_Void_2);
+    }
+
+    public static class AppControllerUtils
+    {
+        public const string SetGameModeMethod = nameof(GameModeController.Method_Public_Void_EnumPublicSealedvaNOGALOMEPRGAMASHCRUnique_0);
+
+        public static void JoinLobby(Lobby lobby)
+        {
+            LobbyController.prop_LobbyController_0.Method_Public_Void_ObjectPublicStObInObBoBoInObBoObUnique_0(lobby);
+        }
+    }
+
+    public static class BloodyCustomGameScreen
+    {
+        public const string OnJoinAttemptMethod = nameof(CustomGameScreen.Method_Private_Void_List_1_InterfacePublicAbstractTyBoVoTyBoObVoUnique_0);
     }
 }
