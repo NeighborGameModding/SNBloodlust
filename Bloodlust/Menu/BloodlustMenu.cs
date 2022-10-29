@@ -35,7 +35,7 @@ public static class BloodlustMenu
             CursorController.Enabled = _enabled;
         }
 
-        if (!_enabled)
+        if (!_enabled && Event.current.type != EventType.KeyDown)
             return;
 
         var screenWidth = Screen.width;
