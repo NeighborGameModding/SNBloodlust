@@ -62,6 +62,8 @@ using AppControllers;
 using Ui.Screens.CustomGame;
 using GameModes.LobbyMode;
 using static MelonLoader.MelonLogger;
+using GameModes.GameplayMode.Players;
+using GameModes.GameplayMode.Actors;
 
 namespace Bloodlust.Deobfuscation;
 
@@ -98,6 +100,16 @@ internal static class DeobfuscatorExtensions
     public static Lobby GetSelectedLobby(this CustomGameScreen cgs)
     {
         return cgs.field_Private_ObjectPublicStObInObBoBoInObBoObUnique_0;
+    }
+
+    public static Il2CppSystem.Collections.Generic.List<Actor> GetActors(this Player player)
+    {
+        return player.prop_List_1_Actor_0;
+    }
+
+    public static Actor GetCurrentActor(this Player player)
+    {
+        return player.prop_Actor_0;
     }
 }
 
@@ -137,5 +149,13 @@ internal static class StaticDeobfuscator
     public static class BloodyCustomGameScreen
     {
         public const string OnJoinAttemptMethod = nameof(CustomGameScreen.Method_Private_Void_List_1_InterfacePublicAbstractTyBoVoTyBoObVoUnique_0);
+    }
+
+    public static class BloodyPlayerController
+    {
+        public static Player GetLocalPlayer()
+        {
+            return PlayerController.prop_Player_0;
+        }
     }
 }

@@ -81,10 +81,23 @@ public static class BloodlustMenu
 
     public class Category
     {
+        private bool _enabled;
         private readonly List<MenuElement> _elements;
 
         public string Name { get; private set; }
-        public bool Enabled { get; set; }
+        public bool Enabled
+        {
+            get => _enabled;
+            set
+            {
+                if (value == _enabled)
+                    return;
+
+                _enabled = value;
+                foreach (var e in _elements)
+                    e.Enabled = value;
+            }
+        }
 
         private Category(string name, List<MenuElement> elements, bool enabled = false)
         {

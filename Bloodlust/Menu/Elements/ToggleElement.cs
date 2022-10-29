@@ -6,6 +6,7 @@ namespace Bloodlust.Menu.Elements;
 
 public class ToggleElement : HotkeyElement
 {
+    private bool _shouldBeOn;
     private bool _on;
 
     public readonly MelonEvent<bool> OnToggle = new();
@@ -15,19 +16,31 @@ public class ToggleElement : HotkeyElement
         get => _on;
         set
         {
-            if (value == _on)
+            if (value == _shouldBeOn)
                 return;
 
-            _on = value;
-            OnToggle.Invoke(value);
+            _shouldBeOn = value;
+            if (Enabled)
+            {
+                ForceToggle(value);
+            }
         }
     }
 
     public ToggleElement(string name, LemonAction<bool> onToggle = null, KeyCode defaultKey = KeyCode.None, bool defaultValue = false) : base(name, defaultKey)
     {
-        _on = defaultValue;
+        On = defaultValue;
         if (onToggle != null)
             OnToggle.Subscribe(onToggle);
+    }
+
+    private void ForceToggle(bool value)
+    {
+        if (value == _on)
+            return;
+
+        _on = value;
+        OnToggle.Invoke(value);
     }
 
     public override void Render()
@@ -43,5 +56,10 @@ public class ToggleElement : HotkeyElement
     protected override void OnKeyPressed()
     {
         On = !On;
+    }
+
+    protected override void OnElementToggled(bool value)
+    {
+        ForceToggle(value && _shouldBeOn);
     }
 }
