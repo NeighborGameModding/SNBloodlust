@@ -25,7 +25,7 @@ public abstract class HotkeyElement : MenuElement
             else if (Event.current.type == EventType.KeyDown)
             {
                 var input = Event.current.keyCode;
-                if ((input >= KeyCode.LeftBracket && input <= KeyCode.Tilde) || (input >= KeyCode.Keypad0 && input <= KeyCode.LeftArrow))
+                if (input is >= KeyCode.LeftBracket and <= KeyCode.Tilde or >= KeyCode.Keypad0 and <= KeyCode.LeftArrow)
                     Key = input;
 
                 _selectingKey = false;
