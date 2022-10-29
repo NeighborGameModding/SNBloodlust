@@ -16,9 +16,6 @@ public abstract class HotkeyElement : MenuElement
 
     public void RenderHotkey()
     {
-        if (!_selectingKey && Key != KeyCode.None && GUIInput.KeyDown(Key))
-            OnKeyPressed();
-
         if (_selectingKey)
         {
             if (Event.current.isMouse)
@@ -43,6 +40,12 @@ public abstract class HotkeyElement : MenuElement
             _selectingKey = true;
         }
         GUI.backgroundColor = color;
+    }
+
+    public override void Update()
+    {
+        if (!_selectingKey && Key != KeyCode.None && Input.GetKeyDown(Key))
+            OnKeyPressed();
     }
 
     protected abstract void OnKeyPressed();

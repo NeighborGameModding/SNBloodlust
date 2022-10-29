@@ -23,8 +23,17 @@ public static class BloodlustMenu
             return;
 
         MelonEvents.OnGUI.Subscribe(Render, 1000);
+        MelonEvents.OnUpdate.Subscribe(Update);
 
         _initialized = true;
+    }
+
+    private static void Update()
+    {
+        foreach (var category in _categories)
+        {
+            category.Update();
+        }
     }
 
     private static void Render()
@@ -35,7 +44,7 @@ public static class BloodlustMenu
             CursorController.Enabled = _enabled;
         }
 
-        if (!_enabled && Event.current.type != EventType.KeyDown)
+        if (!_enabled)
             return;
 
         var screenWidth = Screen.width;
@@ -111,6 +120,17 @@ public static class BloodlustMenu
             var c = new Category(name, elements, enabled);
             _categories.Add(c);
             return c;
+        }
+
+        public void Update()
+        {
+            if (!Enabled)
+                return;
+
+            foreach (var element in _elements)
+            {
+                element.Update();
+            }
         }
 
         public void Render()

@@ -29,5 +29,7 @@ public abstract class MenuElement
 
     public abstract void Render();
 
+    public virtual void Update() { }
+
     protected virtual void OnElementToggled(bool value) { }
 }
