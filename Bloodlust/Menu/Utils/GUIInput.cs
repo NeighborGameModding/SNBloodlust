@@ -27,4 +27,12 @@ public static class GUIInput
 
         return Event.current.keyCode == key;
     }
+
+    public static bool MouseDown(KeyCode key)
+    {
+        if (Event.current.type != EventType.MouseDown)
+            return false;
+
+        return Event.current.keyCode == key;
+    }
 }

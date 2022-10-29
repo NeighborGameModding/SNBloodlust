@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Bloodlust.Menu.Elements;
 
-public class ButtonElement : MenuElement
+public class ButtonElement : HotkeyElement
 {
     private readonly Action _onClick;
 
-    public ButtonElement(string name, Action onClick) : base(name)
+    public ButtonElement(string name, Action onClick, KeyCode defaultKey = KeyCode.None) : base(name, defaultKey)
     {
         _onClick = onClick;
     }
@@ -26,6 +26,12 @@ public class ButtonElement : MenuElement
             Click();
 
         GUILayout.FlexibleSpace();
+        RenderHotkey();
         GUILayout.EndHorizontal();
+    }
+
+    protected override void OnKeyPressed()
+    {
+        Click();
     }
 }

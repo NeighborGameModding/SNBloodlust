@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Bloodlust.Menu.Elements;
 
-public class ToggleElement : MenuElement
+public class ToggleElement : HotkeyElement
 {
     private bool _on;
 
@@ -23,7 +23,7 @@ public class ToggleElement : MenuElement
         }
     }
 
-    public ToggleElement(string name, LemonAction<bool> onToggle = null, bool defaultValue = false) : base(name)
+    public ToggleElement(string name, LemonAction<bool> onToggle = null, KeyCode defaultKey = KeyCode.None, bool defaultValue = false) : base(name, defaultKey)
     {
         _on = defaultValue;
         if (onToggle != null)
@@ -36,6 +36,12 @@ public class ToggleElement : MenuElement
         GUILayout.Label(Name, GUIExt.NoOptions);
         GUILayout.FlexibleSpace();
         On = GUILayout.Toggle(On, string.Empty, GUIExt.NoOptions);
+        RenderHotkey();
         GUILayout.EndHorizontal();
+    }
+
+    protected override void OnKeyPressed()
+    {
+        On = !On;
     }
 }
