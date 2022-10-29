@@ -10,10 +10,12 @@ public static class BloodlustMenu
 {
     private static bool _initialized;
     private static readonly List<Category> _categories = new();
+    private static readonly KeyCode _toggleMenuKey = KeyCode.Insert;
 
     private static Rect _menuRect = new(10, 10, 400, 500);
     private static Vector2 _scrollPosition;
     private static Rect _menuContentMargin = new(4, 20, 4, 4);
+    private static bool _enabled;
 
     public static void Initialize()
     {
@@ -27,6 +29,15 @@ public static class BloodlustMenu
 
     private static void Render()
     {
+        if (GUIInput.KeyDown(_toggleMenuKey))
+        {
+            _enabled = !_enabled;
+            CursorController.Enabled = _enabled;
+        }
+
+        if (!_enabled)
+            return;
+
         var screenWidth = Screen.width;
         var screenHeight = Screen.height;
         if (_menuRect.x < 0)
