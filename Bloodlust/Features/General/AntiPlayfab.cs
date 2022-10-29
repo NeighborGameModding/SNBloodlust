@@ -8,7 +8,7 @@ namespace Bloodlust.Features.General;
 [HarmonyPatch(typeof(PlayfabBackendAdapter))]
 internal static class AntiPlayfab
 {
-    private readonly static string _loadoutSaveFilePath = Path.Combine(MelonUtils.UserDataDirectory, "Loadout.json");
+    private static readonly string _loadoutSaveFilePath = Path.Combine(MelonUtils.UserDataDirectory, "Loadout.json");
 
     [HarmonyPatch(BloodyPlayfabBackendAdapter.MelRepRequestMethod)]
     [HarmonyPrefix]

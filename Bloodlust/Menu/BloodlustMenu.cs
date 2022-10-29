@@ -1,5 +1,4 @@
 ﻿using Bloodlust.Menu.Utils;
-using Bloodlust.Utils;
 using MelonLoader;
 using System;
 using UnityEngine;
