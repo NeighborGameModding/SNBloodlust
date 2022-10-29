@@ -54,16 +54,16 @@ global using PlayerApplyBuffMessage = Object2PublicSeUnique;
 global using PlayerDeactiveBuffMessage = Object2PublicInObUnique;
 global using AnimateSecretDoorMessage = Object2PublicVeObPlUnique;
 //global using PlayerPickUpResourceMessage = Object2Public31InObVoInObInObInOb0;
+global using RifleShootMessage = Object2PublicVeObVeVoObVeObVeObVe1;
 
 using HoloNetwork.NetworkObjects;
 using Bloodlust.Deobfuscation.Enums;
 using Ui.Screens.Preload;
-using AppControllers;
 using Ui.Screens.CustomGame;
 using GameModes.LobbyMode;
-using static MelonLoader.MelonLogger;
 using GameModes.GameplayMode.Players;
 using GameModes.GameplayMode.Actors;
+using GameModes.GameplayMode.Interactables.InventoryItems;
 
 namespace Bloodlust.Deobfuscation;
 
@@ -111,6 +111,11 @@ internal static class DeobfuscatorExtensions
     {
         return player.prop_Actor_0;
     }
+
+    public static void Reload(this RifleInventoryItem rifle)
+    {
+        rifle.field_Protected_ObscuredBool_0 = true;
+    }
 }
 
 internal static class StaticDeobfuscator
@@ -157,5 +162,11 @@ internal static class StaticDeobfuscator
         {
             return PlayerController.prop_Player_0;
         }
+    }
+
+    public static class RifleInventoryItemUtils
+    {
+        public const string ShootRifleMethod = nameof(RifleInventoryItem.Method_Protected_Void_Object2PublicVeObVeVoObVeObVeObVe1_PDM_2);
+        public const string PickUpRifleMethod = nameof(RifleInventoryItem.Method_Public_Virtual_Final_New_Void_Action_0);
     }
 }
