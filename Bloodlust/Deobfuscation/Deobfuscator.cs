@@ -19,6 +19,9 @@ global using GameModeController = ObjectPublicDi2ObLiOb1AcCoAcBoUnique;
 global using Lobby = ObjectPublicStObInObBoBoInObBoObUnique;
 global using PlayerResourceManager = Object1PublicAbstractAcObSkObBoLiOb1NuObUnique;
 global using SlingshotManager = Object2PublicObSiInSlBoScInBoSlUnique;
+global using PlayerInfo = ObjectPublicObBoObAcBo1ObStAc1Unique;
+global using EncryptedString = ValueTypePublicSealedObBy_sVoStByVoVoUnique;
+global using ActorInfo = ObjectPublicISerializableObLoObAcLoUnique;
 
 global using HoloNetMessenger = ObjectPublicDoBoObBoUnique;
 global using HoloNetGlobalMessage = Object1PublicObVoObObObObObObObObUnique;
@@ -66,6 +69,7 @@ using GameModes.LobbyMode;
 using GameModes.GameplayMode.Players;
 using GameModes.GameplayMode.Actors;
 using GameModes.GameplayMode.Interactables.InventoryItems;
+using GameModes.GameplayMode.ActorClassSystem.Classes;
 
 namespace Bloodlust.Deobfuscation;
 
@@ -122,6 +126,36 @@ internal static class DeobfuscatorExtensions
     public static void SetResourceAmount(this PlayerResourceManager prm, int amount)
     {
         prm.prop_ObscuredInt_1 = amount;
+    }
+
+    public static bool IsDead(this Player player)
+    {
+        return player.prop_Boolean_1;
+    }
+
+    public static PlayerInfo GetPlayerInfo(this Player player)
+    {
+        return player.prop_ObjectPublicObBoObAcBo1ObStAc1Unique_0;
+    }
+
+    public static string Decrypt(this EncryptedString str)
+    {
+        return ObjectPublicAbstractSealedStObStOb0.Method_Public_Static_String_ValueTypePublicSealedObBy_sVoStByVoVoUnique_PDM_0(str);
+    }
+
+    public static string GetName(this PlayerInfo player)
+    {
+        return player.field_Public_ValueTypePublicSealedObBy_sVoStByVoVoUnique_2.Decrypt();
+    }
+
+    public static string GetID(this PlayerInfo player)
+    {
+        return player.field_Public_ValueTypePublicSealedObBy_sVoStByVoVoUnique_0.Decrypt();
+    }
+
+    public static ActorClassInfo GetActorClassInfo(this Actor actor)
+    {
+        return actor.prop_ObjectPublicISerializableObLoObAcLoUnique_0?.prop_ActorClassInfo_0;
     }
 }
 

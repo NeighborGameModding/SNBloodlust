@@ -52,15 +52,31 @@ public static class VisualAdvantages
 
         foreach (var player in players)
         {
+            if (player.IsDead())
+                continue;
+
             var actor = player.GetCurrentActor();
+            var clas = actor.GetActorClassInfo();
+            if (clas == null)
+                continue;
+
             var pos = cam.WorldToScreenPoint(actor.transform.position);
             if (pos.z < 0)
                 continue;
 
             pos.y = Screen.height - pos.y;
 
-            var size = new Vector2(100, 20);
-            GUI.Box(new(pos.x - size.x / 2, pos.y - size.y / 2, size.x, size.y), "Player");
+            var distance = Vector3.Distance(cam.transform.position, actor.transform.position);
+
+            var name = player.GetPlayerInfo().GetName();
+            if (name.Length > 24)
+                name = name.Substring(0, 24) + "...";
+
+            var size = new Vector2(200, 60);
+            var color = GUI.backgroundColor;
+            GUI.backgroundColor = Color.blue;
+            GUI.Box(new(pos.x - size.x / 2, pos.y - size.y / 2, size.x, size.y), $"<b>{name}</b>\n<color={(clas.isNeighborClass ? "red" : "aqua")}>{clas.Id}</color>\n{distance:0.0}m");
+            GUI.backgroundColor = color;
         }
     }
 }
