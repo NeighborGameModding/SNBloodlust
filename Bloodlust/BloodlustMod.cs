@@ -17,5 +17,6 @@ public class BloodlustMod : MelonMod
         MovementModifiers.Initialize();
         SkillModifiers.Initialize();
         ItemExploits.Initialize();
+        VisualAdvantages.Initialize();
     }
 }

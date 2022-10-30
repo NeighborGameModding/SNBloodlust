@@ -169,6 +169,11 @@ internal static class StaticDeobfuscator
         {
             return PlayerController.prop_Player_0;
         }
+
+        public static Il2CppSystem.Collections.Generic.List<Player> GetAllPlayers()
+        {
+            return PlayerController.prop_List_1_Player_0;
+        }
     }
 
     public static class RifleInventoryItemUtils
