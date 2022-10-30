@@ -17,6 +17,8 @@ global using GetLoadoutRequestResult = Object1Public99VoUnique;
 global using LoadoutSerializer = h5ay7rju46La5doyt5jtndrdfjf;
 global using GameModeController = ObjectPublicDi2ObLiOb1AcCoAcBoUnique;
 global using Lobby = ObjectPublicStObInObBoBoInObBoObUnique;
+global using PlayerResourceManager = Object1PublicAbstractAcObSkObBoLiOb1NuObUnique;
+global using SlingshotManager = Object2PublicObSiInSlBoScInBoSlUnique;
 
 global using HoloNetMessenger = ObjectPublicDoBoObBoUnique;
 global using HoloNetGlobalMessage = Object1PublicObVoObObObObObObObObUnique;
@@ -116,6 +118,11 @@ internal static class DeobfuscatorExtensions
     {
         rifle.field_Protected_ObscuredBool_0 = true;
     }
+
+    public static void SetResourceAmount(this PlayerResourceManager prm, int amount)
+    {
+        prm.prop_ObscuredInt_1 = amount;
+    }
 }
 
 internal static class StaticDeobfuscator
@@ -168,5 +175,11 @@ internal static class StaticDeobfuscator
     {
         public const string ShootRifleMethod = nameof(RifleInventoryItem.Method_Protected_Void_Object2PublicVeObVeVoObVeObVeObVe1_PDM_2);
         public const string PickUpRifleMethod = nameof(RifleInventoryItem.Method_Public_Virtual_Final_New_Void_Action_0);
+    }
+
+    public static class SlingshotUtils
+    {
+        public const string InitializeMethod = nameof(SlingshotInventoryItem.Method_Public_Virtual_Void_1);
+        public const string HasEnoughResourcesMethod = nameof(SlingshotManager.Method_Private_Boolean_PDM_0);
     }
 }
