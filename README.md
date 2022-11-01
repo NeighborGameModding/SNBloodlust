@@ -1,4 +1,6 @@
 # Bloodlust
+An Open-Source Mod Menu for the game called SN
+
 ![Bloodlust](Media/Bloodlust.png)
 
 # Installation Guide
