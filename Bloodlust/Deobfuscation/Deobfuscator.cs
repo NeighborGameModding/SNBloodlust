@@ -74,6 +74,7 @@ using GameModes.GameplayMode.Players;
 using GameModes.GameplayMode.Actors;
 using GameModes.GameplayMode.Interactables.InventoryItems;
 using GameModes.GameplayMode.ActorClassSystem.Classes;
+using UnityEngine;
 
 namespace Bloodlust.Deobfuscation;
 
@@ -119,7 +120,7 @@ internal static class DeobfuscatorExtensions
 
     public static Actor GetCurrentActor(this Player player)
     {
-        return player.prop_Actor_0;
+        return player?.prop_Actor_0;
     }
 
     public static void Reload(this RifleInventoryItem rifle)
@@ -175,6 +176,11 @@ internal static class DeobfuscatorExtensions
     public static void Debuff(this Player player, PlayerBuff buff)
     {
         player.prop_HoloNetObject_0.SendMessage(Messages.PlayerDeactiveBuffMessage(buff));
+    }
+
+    public static HoloNetObject GetNetObject(this Player player)
+    {
+        return player.prop_HoloNetObject_0;
     }
 }
 
@@ -269,6 +275,14 @@ internal static class StaticDeobfuscator
             return new PlayerDeactiveBuffMessage()
             {
                 field_Public_Int32_0 = (int)buff
+            };
+        }
+
+        public static TeleportPlayerMessage TeleportPlayerMessage(Vector3 position)
+        {
+            return new TeleportPlayerMessage()
+            {
+                field_Public_Vector3_0 = position
             };
         }
     }
