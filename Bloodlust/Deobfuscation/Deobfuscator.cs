@@ -24,6 +24,7 @@ global using SlingshotManager = Object2PublicObSiInSlBoScInBoSlUnique;
 global using PlayerInfo = ObjectPublicObBoObAcBo1ObStAc1Unique;
 global using EncryptedString = ValueTypePublicSealedObBy_sVoStByVoVoUnique;
 global using ActorInfo = ObjectPublicISerializableObLoObAcLoUnique;
+global using GameContext = ObjectPublicObStObLi1ObMaLi1BoUnique;
 
 global using HoloNetMessenger = ObjectPublicDoBoObBoUnique;
 global using HoloNetGlobalMessage = Object1PublicObVoObObObObObObObObUnique;
@@ -36,7 +37,7 @@ global using KeyPickedUpMessage = Object2PublicKeObKeUnique;
 global using KeycardDoorUnlockedMessage = Object2PublicIn31Ob31InObVo31InObUnique;
 //global using LockUnlockedMessage = Object2Public3150PlObVo50PlObPl50Unique;
 global using UpdateMatchSettingsMessage = Object2PublicMaUnique;
-global using LobbyPlayerInfoSyncMessage = Object2PublicObObObUnique;
+global using LobbyPlayerSyncInfoMessage = Object2PublicObObObUnique;
 //global using LobbyPlayerStateSyncMessage = Object2Public60ObVo60Ob60Ob60Ob60Unique;
 global using SpawnActorMessage = Object2PublicStObObUnique; // ???
 global using PlayerJumpMessage = Object3PublicVo145;
@@ -77,6 +78,8 @@ using GameModes.GameplayMode.ActorClassSystem.Classes;
 using UnityEngine;
 using UnhollowerRuntimeLib;
 using UnhollowerBaseLib;
+using GameModes.LobbyMode.LobbyCharacters;
+using GameModes;
 
 namespace Bloodlust.Deobfuscation;
 
@@ -173,6 +176,16 @@ internal static class DeobfuscatorExtensions
         return player.field_Public_ValueTypePublicSealedObBy_sVoStByVoVoUnique_0.Decrypt();
     }
 
+    public static void SetName(this PlayerInfo player, string name)
+    {
+        player.field_Public_ValueTypePublicSealedObBy_sVoStByVoVoUnique_2 = name.Encrypt();
+    }
+
+    public static void SetID(this PlayerInfo player, string id)
+    {
+        player.field_Public_ValueTypePublicSealedObBy_sVoStByVoVoUnique_0 = id.Encrypt();
+    }
+
     public static ActorClassInfo GetActorClassInfo(this Actor actor)
     {
         return actor?.prop_ObjectPublicISerializableObLoObAcLoUnique_0?.prop_ActorClassInfo_0;
@@ -180,17 +193,27 @@ internal static class DeobfuscatorExtensions
 
     public static void Buff(this Player player, PlayerBuff buff)
     {
-        player.prop_HoloNetObject_0.SendMessage(Messages.PlayerApplyBuffMessage(buff));
+        player.prop_HoloNetObject_0.SendMessage(Messages.CreatePlayerApplyBuffMessage(buff));
     }
 
     public static void Debuff(this Player player, PlayerBuff buff)
     {
-        player.prop_HoloNetObject_0.SendMessage(Messages.PlayerDeactiveBuffMessage(buff));
+        player.prop_HoloNetObject_0.SendMessage(Messages.CreatePlayerDeactiveBuffMessage(buff));
     }
 
     public static HoloNetObject GetNetObject(this Player player)
     {
         return player.prop_HoloNetObject_0;
+    }
+
+    public static HoloNetObject GetNetObject(this LobbyPlayer player)
+    {
+        return player.prop_HoloNetObject_0;
+    }
+
+    public static void RefreshName(this LobbyCharacter character)
+    {
+        character.Method_Public_Void_PDM_0();
     }
 }
 
@@ -234,6 +257,11 @@ internal static class StaticDeobfuscator
 
     public static class BloodyPlayerController
     {
+        public static LobbyPlayer GetLocalLobbyPlayer()
+        {
+            return LobbyController.prop_LobbyController_0?.players.prop_LobbyPlayer_0;
+        }
+
         public static Player GetLocalPlayer()
         {
             return PlayerController.prop_Player_0;
@@ -262,9 +290,25 @@ internal static class StaticDeobfuscator
         public const string OnKickMessageMethod = nameof(LobbyPlayer.Method_Public_Void_Object2PublicObVoObObObObObObObOb0_PDM_0);
     }
 
+    public static class GameContextUtils
+    {
+        public static PlayerInfo GetLocalPlayerInfo()
+        {
+            return GameContext.prop_ObjectPublicObStObLi1ObMaLi1BoUnique_0.field_Public_ObjectPublicObBoObAcBo1ObStAc1Unique_0;
+        }
+    }
+
+    public static class MenuScenaryUtils
+    {
+        public static MenuScenery GetInstance()
+        {
+            return MenuScenery.prop_MenuScenery_0;
+        }
+    }
+
     public static class Messages
     {
-        public static EndMatchMessage EndMatchMessage(EndingType type)
+        public static EndMatchMessage CreateEndMatchMessage(EndingType type)
         {
             return new EndMatchMessage()
             {
@@ -272,7 +316,7 @@ internal static class StaticDeobfuscator
             };
         }
 
-        public static PlayerApplyBuffMessage PlayerApplyBuffMessage(PlayerBuff buff)
+        public static PlayerApplyBuffMessage CreatePlayerApplyBuffMessage(PlayerBuff buff)
         {
             return new PlayerApplyBuffMessage()
             {
@@ -280,7 +324,7 @@ internal static class StaticDeobfuscator
             };
         }
 
-        public static PlayerDeactiveBuffMessage PlayerDeactiveBuffMessage(PlayerBuff buff)
+        public static PlayerDeactiveBuffMessage CreatePlayerDeactiveBuffMessage(PlayerBuff buff)
         {
             return new PlayerDeactiveBuffMessage()
             {
@@ -288,12 +332,17 @@ internal static class StaticDeobfuscator
             };
         }
 
-        public static TeleportPlayerMessage TeleportPlayerMessage(Vector3 position)
+        public static TeleportPlayerMessage CreateTeleportPlayerMessage(Vector3 position)
         {
             return new TeleportPlayerMessage()
             {
                 field_Public_Vector3_0 = position
             };
+        }
+
+        public static LobbyPlayerSyncInfoMessage CreateLobbyPlayerSyncInfoMessage(PlayerInfo playerInfo, ActorInfo childInfo, ActorInfo neighborInfo)
+        {
+            return LobbyPlayerSyncInfoMessage.Method_Public_Static_Object2PublicObObObUnique_ObjectPublicObBoObAcBo1ObStAc1Unique_ObjectPublicISerializableObLoObAcLoUnique_ObjectPublicISerializableObLoObAcLoUnique_0(playerInfo, childInfo, neighborInfo);
         }
     }
 }

@@ -47,7 +47,7 @@ public static class GameController
 
     private static void EndGame(EndingType type)
     {
-        BloodyHoloNetMessenger.SendMessage(Messages.EndMatchMessage(type));
+        BloodyHoloNetMessenger.SendMessage(Messages.CreateEndMatchMessage(type));
     }
 
     private static void OnGameModeChanged(GameMode gameMode)

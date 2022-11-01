@@ -49,7 +49,7 @@ public static class Buffs
             if (actor == null)
                 break;
 
-            lp.GetNetObject().SendMessage(Messages.TeleportPlayerMessage(actor.transform.position), MessageTarget.Others);
+            lp.GetNetObject().SendMessage(Messages.CreateTeleportPlayerMessage(actor.transform.position), MessageTarget.Others);
         }
     }
 
