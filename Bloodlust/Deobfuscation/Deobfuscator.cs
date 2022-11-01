@@ -75,6 +75,8 @@ using GameModes.GameplayMode.Actors;
 using GameModes.GameplayMode.Interactables.InventoryItems;
 using GameModes.GameplayMode.ActorClassSystem.Classes;
 using UnityEngine;
+using UnhollowerRuntimeLib;
+using UnhollowerBaseLib;
 
 namespace Bloodlust.Deobfuscation;
 
@@ -151,6 +153,14 @@ internal static class DeobfuscatorExtensions
     public static string Decrypt(this EncryptedString str)
     {
         return ObjectPublicAbstractSealedStObStOb0.Method_Public_Static_String_ValueTypePublicSealedObBy_sVoStByVoVoUnique_PDM_0(str);
+    }
+
+    public static EncryptedString Encrypt(this string str)
+    {
+        return Il2CppSystem.Activator.CreateInstance(Il2CppType.Of<EncryptedString>(), new Il2CppReferenceArray<Il2CppSystem.Object>(new Il2CppSystem.Object[] 
+        { 
+            new Il2CppSystem.String(IL2CPP.ManagedStringToIl2Cpp(str)) 
+        })).Cast<EncryptedString>();
     }
 
     public static string GetName(this PlayerInfo player)
