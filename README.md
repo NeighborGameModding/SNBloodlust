@@ -28,6 +28,6 @@ Do you have any experience with C# and Unity modding? You can always contribute 
 <br>Before contributing, make sure to read our project structure rules to keep the project maintainable and easy to understand!</br>
 
 1. Do not use obfuscated names outside of [Deobfuscator.cs](Bloodlust/Deobfuscation/Deobfuscator.cs). To rename obfuscated types, use global usings. To use obfuscated instance methods/properties/fields, create extension methods in the DeobfuscatorExtensions class. To use obfuscated static methods/properties/fields, use/create a nested class in the StaticDeobfuscator class and create a static wrapper method inside of it.
-2. Ensure that your code is fast. Try not to use loops too often and look for ways around using Harmony Patches.
+2. Ensure that your code is fast. Try not to use loops too often. Instead, you can look for ways around, for examble by using Harmony Patches.
 3. Keep the amount of object allocations to a minimum. Creating too many objects in a short period of time might cause lag spikes due to garbage collection.
 4. All referenced assemblies must be added to the [References Folder](Bloodlust/References)
