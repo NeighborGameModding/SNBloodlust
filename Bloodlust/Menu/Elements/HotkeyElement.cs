@@ -60,7 +60,7 @@ public abstract class HotkeyElement : MenuElement
     {
         if (_pauseInput)
             return;
-        
+
         if (Key != KeyCode.None && Input.GetKeyDown(Key))
             OnKeyPressed();
     }

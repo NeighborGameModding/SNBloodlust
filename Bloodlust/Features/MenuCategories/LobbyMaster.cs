@@ -1,7 +1,6 @@
 ﻿using Bloodlust.Menu;
 using Bloodlust.Menu.Elements;
 using HarmonyLib;
-using System;
 
 namespace Bloodlust.Features.MenuCategories;
 
