@@ -12,7 +12,7 @@ public class BloodlustMod : MelonMod
         BloodlustMenu.Initialize();
 
         LobbyMaster.Initialize();
-        LoadoutModifiers.Initialize();
+        Identity.Initialize();
         LobbyList.Initialize();
 
         GameController.Initialize();
