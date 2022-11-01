@@ -5,7 +5,7 @@ using System;
 
 namespace Bloodlust.Features.MenuCategories;
 
-public static class LoadoutModifiers
+public static class Identity
 {
     private static BloodlustMenu.Category _category;
     private static ToggleElement _unlockAllItems;
@@ -19,7 +19,7 @@ public static class LoadoutModifiers
         _unlockAllItems = new ToggleElement("Unlock All Items", OnToggleAllItems);
         _crossEmotes = new ToggleElement("Cross-Emotes", OnToggleCrossEmotes);
 
-        _category = BloodlustMenu.Category.Create("Loadout Modifiers", new()
+        _category = BloodlustMenu.Category.Create("Identity", new()
         {
             _unlockAllItems,
             _crossEmotes
