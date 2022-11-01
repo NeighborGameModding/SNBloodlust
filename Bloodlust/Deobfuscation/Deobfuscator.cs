@@ -7,6 +7,7 @@ global using BackendType = EnumPublicSealedvaOFPL3vUnique;
 global using OriginalMessageTarget = EnumPublicSealedva5v1;
 global using ActorType = EnumPublicSealedvaEXNECUSPITAN8vNEUnique;
 global using GameMode = EnumPublicSealedvaNOGALOMEPRGAMASHCRUnique;
+global using ItemRarity = EnumPublicSealedvaCOUNRALEEP6vUnique;
 
 global using PlayerController = ObjectPublicObLi1PlInPlInObLi1Unique;
 global using NetworkAdapterController = ObjectPublicOb8459Ob617057205817Unique;
@@ -131,6 +132,11 @@ internal static class DeobfuscatorExtensions
     public static bool IsDead(this Player player)
     {
         return player.prop_Boolean_1;
+    }
+
+    public static bool IsNeighbor(this Player player)
+    {
+        return player.prop_Boolean_3;
     }
 
     public static PlayerInfo GetPlayerInfo(this Player player)
