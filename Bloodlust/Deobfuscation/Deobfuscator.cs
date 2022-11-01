@@ -161,7 +161,7 @@ internal static class DeobfuscatorExtensions
 
     public static ActorClassInfo GetActorClassInfo(this Actor actor)
     {
-        return actor.prop_ObjectPublicISerializableObLoObAcLoUnique_0?.prop_ActorClassInfo_0;
+        return actor?.prop_ObjectPublicISerializableObLoObAcLoUnique_0?.prop_ActorClassInfo_0;
     }
 }
 
