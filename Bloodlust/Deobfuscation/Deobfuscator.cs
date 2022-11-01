@@ -227,4 +227,9 @@ internal static class StaticDeobfuscator
         public const string InitializeMethod = nameof(SlingshotInventoryItem.Method_Public_Virtual_Void_1);
         public const string HasEnoughResourcesMethod = nameof(SlingshotManager.Method_Private_Boolean_PDM_0);
     }
+
+    public static class LobbyPlayerUtils
+    {
+        public const string OnKickMessageMethod = nameof(LobbyPlayer.Method_Public_Void_Object2PublicObVoObObObObObObObOb0_PDM_0);
+    }
 }
