@@ -27,7 +27,7 @@ global using ActorInfo = ObjectPublicISerializableObLoObAcLoUnique;
 global using HoloNetMessenger = ObjectPublicDoBoObBoUnique;
 global using HoloNetGlobalMessage = Object1PublicObVoObObObObObObObObUnique;
 global using HoloNetObjectMessage = Object1PublicObBoObUnique;
-global using EndMatchMessage = Object2PublicStObStBoStUnique;
+global using EndMatchMessage = Object2Public47VoOb47Ob47Ob47Ob47Unique;
 global using StartMatchMessage = Object2PublicObVoObObObObObObObOb4;
 global using SonarBeamMessage = Object2Public92SiObVo92SiOb92SiOb0;
 global using SonarIdleMessage = Object2Public92SiObVo92SiOb92SiOb1; // I'm not exactly sure what this message is for, but it's used between the sonar beams
@@ -231,5 +231,16 @@ internal static class StaticDeobfuscator
     public static class LobbyPlayerUtils
     {
         public const string OnKickMessageMethod = nameof(LobbyPlayer.Method_Public_Void_Object2PublicObVoObObObObObObObOb0_PDM_0);
+    }
+
+    public static class Messages
+    {
+        public static EndMatchMessage EndMatchMessage(EndingType type)
+        {
+            return new EndMatchMessage()
+            {
+                field_Public_EnumPublicSealedvaALBATIQU5vUnique_0 = type
+            };
+        }
     }
 }
