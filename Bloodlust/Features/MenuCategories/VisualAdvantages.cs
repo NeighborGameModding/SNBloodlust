@@ -26,7 +26,7 @@ public static class VisualAdvantages
     {
         _itemESPToggle = new ToggleElement("Item ESP", ToggleItemESP, KeyCode.Keypad2);
         _playerESPToggle = new ToggleElement("Player ESP", TogglePlayerESP, KeyCode.Keypad1);
-        _revealClasses = new ToggleElement("Reveal Classes");
+        _revealClasses = new ToggleElement("Reveal Classes", defaultValue: true);
 
         _category = BloodlustMenu.Category.Create("Visual Advantages", new()
         {
