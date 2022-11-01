@@ -11,7 +11,7 @@ namespace Bloodlust.Info;
 
 public static class ModInfo
 {
-    public const string Version = "1.0.0";
+    public const string Version = "0.1";
     public const string Name = "Bloodlust";
     public const string Author = "SN Modding";
     public const string GitLink = "https://github.com/NeighborGameModding/SNBloodlust";

@@ -1,4 +1,5 @@
-﻿using Bloodlust.Menu.Utils;
+﻿using Bloodlust.Info;
+using Bloodlust.Menu.Utils;
 using MelonLoader;
 using System;
 using System.Collections.Generic;
@@ -59,7 +60,7 @@ public static class BloodlustMenu
             _menuRect.y = screenHeight - _menuRect.height;
 
         GUI.backgroundColor = Color.red;
-        _menuRect = GUI.Window(666, _menuRect, new Action<int>(RenderMenu), "<b>Bloodlust</b>");
+        _menuRect = GUI.Window(666, _menuRect, new Action<int>(RenderMenu), "<b>Bloodlust</b>  <color=grey>v" + ModInfo.Version + "</color>");
     }
 
     private static void RenderMenu(int id)
