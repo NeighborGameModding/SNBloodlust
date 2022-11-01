@@ -1,4 +1,5 @@
-﻿using Bloodlust.Menu;
+﻿using Bloodlust.Deobfuscation;
+using Bloodlust.Menu;
 using Bloodlust.Menu.Elements;
 using GameModes.Shared.Models.Customization;
 using System;
@@ -8,24 +9,41 @@ namespace Bloodlust.Features.MenuCategories;
 public static class Identity
 {
     private static BloodlustMenu.Category _category;
-    private static ToggleElement _unlockAllItems;
-    private static ToggleElement _crossEmotes;
+
+    private static TextBoxElement _nameToSetTextBox;
 
     private static Tuple<CustomizationItemInfo, bool>[] _allItems;
     private static Tuple<CustomizationEmotionsInfo, ActorType, bool>[] _allEmotions;
 
     public static void Initialize()
     {
-        _unlockAllItems = new ToggleElement("Unlock All Items", OnToggleAllItems);
-        _crossEmotes = new ToggleElement("Cross-Emotes", OnToggleCrossEmotes);
+        _nameToSetTextBox = new("Name To Set");
+        var changeNameButton = new ButtonElement("Change Name", ChangeName);
+        var unlockAllItems = new ToggleElement("Unlock All Items", OnToggleAllItems);
+        var crossEmotes = new ToggleElement("Cross-Emotes", OnToggleCrossEmotes);
 
         _category = BloodlustMenu.Category.Create("Identity", new()
         {
-            _unlockAllItems,
-            _crossEmotes
+            _nameToSetTextBox,
+            changeNameButton,
+            unlockAllItems,
+            crossEmotes
         });
 
         GameEvents.OnGameModeChanged.Subscribe(OnGameModeChanged);
+    }
+
+    private static void ChangeName()
+    {
+        var info = GameContextUtils.GetLocalPlayerInfo();
+        info.SetName(_nameToSetTextBox.Text);
+        MenuScenaryUtils.GetInstance().lobbyPlayerCharacter.RefreshName();
+
+        var player = BloodyPlayerController.GetLocalLobbyPlayer();
+        if (player == null)
+            return;
+
+        player.GetNetObject().SendMessage(Messages.CreateLobbyPlayerSyncInfoMessage(info, player.field_Public_ObjectPublicISerializableObLoObAcLoUnique_0, player.field_Public_ObjectPublicISerializableObLoObAcLoUnique_1));
     }
 
     private static void OnToggleCrossEmotes(bool value)
