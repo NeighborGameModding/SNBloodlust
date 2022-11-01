@@ -65,6 +65,7 @@ global using AnimateSecretDoorMessage = Object2PublicVeObPlUnique;
 global using RifleShootMessage = Object2PublicVeObVeVoObVeObVeObVe1;
 global using KickPlayerMessage = Object2PublicObVoObObObObObObObOb0;
 global using TeleportPlayerMessage = Object2PublicVeObVoVeObVeObVeObVe4;
+global using LobbyPlayerDoEmotionMessage = Object2PublicStObVoStObStObStObSt0;
 
 using HoloNetwork.NetworkObjects;
 using Bloodlust.Deobfuscation.Enums;
@@ -215,6 +216,11 @@ internal static class DeobfuscatorExtensions
     {
         character.Method_Public_Void_PDM_0();
     }
+
+    public static bool IsLocal(this LobbyPlayer player)
+    {
+        return player.GetNetObject().IsLocal;
+    }
 }
 
 internal static class StaticDeobfuscator
@@ -262,6 +268,11 @@ internal static class StaticDeobfuscator
             return LobbyController.prop_LobbyController_0?.players.prop_LobbyPlayer_0;
         }
 
+        public static Il2CppSystem.Collections.Generic.List<LobbyPlayer> GetAllLobbyPlayers()
+        {
+            return LobbyController.prop_LobbyController_0?.players.prop_List_1_LobbyPlayer_0;
+        }
+
         public static Player GetLocalPlayer()
         {
             return PlayerController.prop_Player_0;
@@ -288,6 +299,7 @@ internal static class StaticDeobfuscator
     public static class LobbyPlayerUtils
     {
         public const string OnKickMessageMethod = nameof(LobbyPlayer.Method_Public_Void_Object2PublicObVoObObObObObObObOb0_PDM_0);
+        public const string OnEmotionMessageMethod = nameof(LobbyPlayer.Method_Private_Void_Object2PublicStObVoStObStObStObSt0_PDM_0);
     }
 
     public static class GameContextUtils
