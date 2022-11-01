@@ -1,4 +1,5 @@
 ﻿using Bloodlust.Menu.Utils;
+using MelonLoader;
 using UnityEngine;
 
 namespace Bloodlust.Menu.Elements;
@@ -6,6 +7,7 @@ namespace Bloodlust.Menu.Elements;
 public abstract class HotkeyElement : MenuElement
 {
     private bool _selectingKey;
+    private static bool _pauseInput;
 
     public KeyCode Key { get; set; }
 
@@ -18,17 +20,18 @@ public abstract class HotkeyElement : MenuElement
     {
         if (_selectingKey)
         {
-            if (Event.current.isMouse)
+            var keyDown = Event.current.type == EventType.KeyDown;
+            if (keyDown || Event.current.isMouse)
             {
                 _selectingKey = false;
+                PauseInput();
             }
-            else if (Event.current.type == EventType.KeyDown)
+
+            if (keyDown)
             {
                 var input = Event.current.keyCode;
                 if (input is >= KeyCode.LeftBracket and <= KeyCode.Tilde or >= KeyCode.Keypad0 and <= KeyCode.LeftArrow)
                     Key = input;
-
-                _selectingKey = false;
             }
         }
 
@@ -42,9 +45,23 @@ public abstract class HotkeyElement : MenuElement
         GUI.backgroundColor = color;
     }
 
+    private static void PauseInput()
+    {
+        _pauseInput = true;
+        MelonEvents.OnUpdate.Subscribe(UnpauseInput, 100, true);
+    }
+
+    private static void UnpauseInput()
+    {
+        _pauseInput = false;
+    }
+
     public override void Update()
     {
-        if (!_selectingKey && Key != KeyCode.None && Input.GetKeyDown(Key))
+        if (_pauseInput)
+            return;
+        
+        if (Key != KeyCode.None && Input.GetKeyDown(Key))
             OnKeyPressed();
     }
 
