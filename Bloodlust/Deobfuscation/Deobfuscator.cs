@@ -8,6 +8,7 @@ global using OriginalMessageTarget = EnumPublicSealedva5v1;
 global using ActorType = EnumPublicSealedvaEXNECUSPITAN8vNEUnique;
 global using GameMode = EnumPublicSealedvaNOGALOMEPRGAMASHCRUnique;
 global using ItemRarity = EnumPublicSealedvaCOUNRALEEP6vUnique;
+global using PlayerBuff = EnumPublicSealedvaSTCAGLCADITODIKNSLUnique;
 
 global using PlayerController = ObjectPublicObLi1PlInPlInObLi1Unique;
 global using NetworkAdapterController = ObjectPublicOb8459Ob617057205817Unique;
@@ -61,6 +62,8 @@ global using PlayerDeactiveBuffMessage = Object2PublicInObUnique;
 global using AnimateSecretDoorMessage = Object2PublicVeObPlUnique;
 //global using PlayerPickUpResourceMessage = Object2Public31InObVoInObInObInOb0;
 global using RifleShootMessage = Object2PublicVeObVeVoObVeObVeObVe1;
+global using KickPlayerMessage = Object2PublicObVoObObObObObObObOb0;
+global using TeleportPlayerMessage = Object2PublicVeObVoVeObVeObVeObVe4;
 
 using HoloNetwork.NetworkObjects;
 using Bloodlust.Deobfuscation.Enums;
@@ -163,6 +166,16 @@ internal static class DeobfuscatorExtensions
     {
         return actor?.prop_ObjectPublicISerializableObLoObAcLoUnique_0?.prop_ActorClassInfo_0;
     }
+
+    public static void Buff(this Player player, PlayerBuff buff)
+    {
+        player.prop_HoloNetObject_0.SendMessage(Messages.PlayerApplyBuffMessage(buff));
+    }
+
+    public static void Debuff(this Player player, PlayerBuff buff)
+    {
+        player.prop_HoloNetObject_0.SendMessage(Messages.PlayerDeactiveBuffMessage(buff));
+    }
 }
 
 internal static class StaticDeobfuscator
@@ -240,6 +253,22 @@ internal static class StaticDeobfuscator
             return new EndMatchMessage()
             {
                 field_Public_EnumPublicSealedvaALBATIQU5vUnique_0 = type
+            };
+        }
+
+        public static PlayerApplyBuffMessage PlayerApplyBuffMessage(PlayerBuff buff)
+        {
+            return new PlayerApplyBuffMessage()
+            {
+                field_Public_SerializableBuff_0 = new(buff)
+            };
+        }
+
+        public static PlayerDeactiveBuffMessage PlayerDeactiveBuffMessage(PlayerBuff buff)
+        {
+            return new PlayerDeactiveBuffMessage()
+            {
+                field_Public_Int32_0 = (int)buff
             };
         }
     }

@@ -10,18 +10,31 @@ namespace Bloodlust.Features.MenuCategories;
 public static class Buffs
 {
     private static BloodlustMenu.Category _category;
-    private static ToggleElement _noclipToggle;
 
     public static void Initialize()
     {
-        _noclipToggle = new("Noclip", ToggleNoclip, KeyCode.N);
+        var _noclipToggle = new ToggleElement("Noclip", ToggleNoclip, KeyCode.N);
+        var _godModeToggle = new ToggleElement("God Mode", ToggleGodMode, KeyCode.G);
 
         _category = BloodlustMenu.Category.Create("Buffs", new()
         {
-            _noclipToggle
+            _noclipToggle,
+            _godModeToggle
         });
 
         GameEvents.OnGameModeChanged.Subscribe(OnGameModeChanged);
+    }
+
+    private static void ToggleGodMode(bool value)
+    {
+        var lp = BloodyPlayerController.GetLocalPlayer();
+        if (lp == null)
+            return;
+
+        if (value)
+            lp.Buff(PlayerBuff.INVINCIBLE);
+        else
+            lp.Debuff(PlayerBuff.INVINCIBLE);
     }
 
     private static void ToggleNoclip(bool value)
@@ -66,6 +79,6 @@ public static class Buffs
 
     private static void OnGameModeChanged(GameMode gameMode)
     {
-        _category.Enabled = gameMode == GameMode.GAMEPLAY;
+        _category.Enabled = gameMode == GameMode.GAMEPLAY; // This should be changed to only when the local player is alive
     }
 }
