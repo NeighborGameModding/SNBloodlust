@@ -16,7 +16,7 @@ public class BloodlustMod : MelonMod
         LobbyList.Initialize();
 
         GameController.Initialize();
-        MovementModifiers.Initialize();
+        Buffs.Initialize();
         SkillModifiers.Initialize();
         ItemExploits.Initialize();
         VisualAdvantages.Initialize();

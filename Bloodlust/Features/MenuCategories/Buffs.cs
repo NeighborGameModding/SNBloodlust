@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Bloodlust.Features.MenuCategories;
 
-internal class MovementModifiers
+public static class Buffs
 {
     private static BloodlustMenu.Category _category;
     private static ToggleElement _noclipToggle;
@@ -15,7 +15,8 @@ internal class MovementModifiers
     public static void Initialize()
     {
         _noclipToggle = new("Noclip", ToggleNoclip, KeyCode.N);
-        _category = BloodlustMenu.Category.Create("Movement Modifiers", new()
+
+        _category = BloodlustMenu.Category.Create("Buffs", new()
         {
             _noclipToggle
         });
