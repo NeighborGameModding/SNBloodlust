@@ -1,4 +1,5 @@
 ﻿using Bloodlust.Deobfuscation;
+using Bloodlust.Utils;
 using HarmonyLib;
 using Il2CppSystem.IO;
 using MelonLoader;
@@ -10,30 +11,20 @@ internal static class AntiPlayfab
 {
     private static readonly string _loadoutSaveFilePath = Path.Combine(MelonUtils.UserDataDirectory, "Loadout.json");
 
-    [HarmonyPatch(BloodyPlayfabBackendAdapter.MelRepRequestMethod)]
-    [HarmonyPrefix]
-    private static bool MelRepRequestPatch()
+    // Not needed with the bypass tbh
+    //[HarmonyPatch(BloodyPlayfabBackendAdapter.MelRepRequestMethod)]
+    //[HarmonyPrefix]
+    //private static bool MelRepRequestPatch()
+    //{
+    //    Logger.Msg("Prevented an anti-cheat report");
+    //    return false;
+    //}
+
+    internal static void Initialize()
     {
-        Logger.Msg("Prevented an anti-cheat report");
-        return false;
+        HarmonyUtils.PatchObfuscated(typeof(PlayfabBackendAdapter), BloodyPlayfabBackendAdapter.GetLoadoutRequestMethod, new(new GetLoadoutPatchDel(GetLoadoutRequestPatch).Method));
     }
 
-    [HarmonyPatch(BloodyPlayfabBackendAdapter.UpdateLoadoutRequestMethod)]
-    [HarmonyPrefix]
-    private static bool UpdateLoadoutRequestPatch([HarmonyArgument(0)] Loadout loadout, [HarmonyArgument(1)] Il2CppSystem.Action<UpdateLoadoutRequestResult> callback, ref UpdateLoadoutRequestResult __result)
-    {
-        Logger.Msg("Prevented a loadout update request");
-
-        SaveLoadoutLocally(loadout);
-
-        __result = new();
-        __result.SetResultReceived(callback);
-
-        return false;
-    }
-
-    [HarmonyPatch(BloodyPlayfabBackendAdapter.GetLoadoutRequestMethod)]
-    [HarmonyPrefix]
     private static bool GetLoadoutRequestPatch([HarmonyArgument(0)] Il2CppSystem.Action<GetLoadoutRequestResult> callback, ref GetLoadoutRequestResult __result)
     {
         Logger.Msg("Loading local loadout");
@@ -47,6 +38,20 @@ internal static class AntiPlayfab
 
         __result = new();
         __result.SetLoadoutResult(loadout, callback);
+
+        return false;
+    }
+
+    [HarmonyPatch(BloodyPlayfabBackendAdapter.UpdateLoadoutRequestMethod)]
+    [HarmonyPrefix]
+    private static bool UpdateLoadoutRequestPatch([HarmonyArgument(0)] Loadout loadout, [HarmonyArgument(1)] Il2CppSystem.Action<UpdateLoadoutRequestResult> callback, ref UpdateLoadoutRequestResult __result)
+    {
+        Logger.Msg("Prevented a loadout update request");
+
+        SaveLoadoutLocally(loadout);
+
+        __result = new();
+        __result.SetResultReceived(callback);
 
         return false;
     }
@@ -97,4 +102,6 @@ internal static class AntiPlayfab
 
         Logger.Msg("Loadout saved locally");
     }
+
+    delegate bool GetLoadoutPatchDel(Il2CppSystem.Action<GetLoadoutRequestResult> callback, ref GetLoadoutRequestResult __result);
 }

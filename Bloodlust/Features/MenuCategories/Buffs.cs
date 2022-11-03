@@ -13,44 +13,18 @@ public static class Buffs
 {
     private static BloodlustMenu.Category _category;
 
-    private static object _desyncFixCoroutine;
-
     public static void Initialize()
     {
         var _noclipToggle = new ToggleElement("Noclip", ToggleNoclip, KeyCode.N);
         var _godModeToggle = new ToggleElement("God Mode", ToggleGodMode, KeyCode.G);
-        var _desyncFixToggle = new ToggleElement("Desync Fix", ToggleDesyncFix, defaultValue: true);
 
         _category = BloodlustMenu.Category.Create("Buffs", new()
         {
             _godModeToggle,
-            _noclipToggle,
-            _desyncFixToggle
+            _noclipToggle
         });
 
         GameEvents.OnGameModeChanged.Subscribe(OnGameModeChanged);
-    }
-
-    private static void ToggleDesyncFix(bool value)
-    {
-        if (value)
-            _desyncFixCoroutine = MelonCoroutines.Start(DesyncFixCoroutine());
-        else if (_desyncFixCoroutine != null)
-            MelonCoroutines.Stop(_desyncFixCoroutine);
-    }
-
-    private static IEnumerator DesyncFixCoroutine()
-    {
-        for (; ; )
-        {
-            yield return new WaitForSecondsRealtime(2f);
-            var lp = BloodyPlayerController.GetLocalPlayer();
-            var actor = lp.GetCurrentActor();
-            if (actor == null)
-                break;
-
-            lp.GetNetObject().SendMessage(Messages.CreateTeleportPlayerMessage(actor.transform.position), MessageTarget.Others);
-        }
     }
 
     private static void ToggleGodMode(bool value)

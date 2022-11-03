@@ -11,7 +11,6 @@ global using ItemRarity = EnumPublicSealedvaCOUNRALEEP6vUnique;
 global using PlayerBuff = EnumPublicSealedvaSTCAGLCADITODIKNSLUnique;
 
 global using PlayerController = ObjectPublicObLi1PlInPlInObLi1Unique;
-global using NetworkAdapterController = ObjectPublicOb8459Ob617057205817Unique;
 global using PlayfabBackendAdapter = ObjectPublicStObStDi2SiObDi2StUnique;
 global using UpdateLoadoutRequestResult = Object1PublicVo7;
 global using Loadout = ObjectPublicAcLiAc1ObObObUnique;
@@ -29,12 +28,12 @@ global using GameContext = ObjectPublicObStObLi1ObMaLi1BoUnique;
 global using HoloNetMessenger = ObjectPublicDoBoObBoUnique;
 global using HoloNetGlobalMessage = Object1PublicObVoObObObObObObObObUnique;
 global using HoloNetObjectMessage = Object1PublicObBoObUnique;
-global using EndMatchMessage = Object2Public47VoOb47Ob47Ob47Ob47Unique;
+global using EndMatchMessage = Object2Public47ObVo47Ob47Ob47Ob470;
 global using StartMatchMessage = Object2PublicObVoObObObObObObObOb4;
 global using SonarBeamMessage = Object2Public92SiObVo92SiOb92SiOb0;
 global using SonarIdleMessage = Object2Public92SiObVo92SiOb92SiOb1; // I'm not exactly sure what this message is for, but it's used between the sonar beams
 global using KeyPickedUpMessage = Object2PublicKeObKeUnique;
-global using KeycardDoorUnlockedMessage = Object2PublicIn31Ob31InObVo31InObUnique;
+//global using KeycardDoorUnlockedMessage = Object2PublicIn31Ob31InObVo31InObUnique;
 //global using LockUnlockedMessage = Object2Public3150PlObVo50PlObPl50Unique;
 global using UpdateMatchSettingsMessage = Object2PublicMaUnique;
 global using LobbyPlayerSyncInfoMessage = Object2PublicObObObUnique;
@@ -62,7 +61,7 @@ global using PlayerApplyBuffMessage = Object2PublicSeUnique;
 global using PlayerDeactiveBuffMessage = Object2PublicInObUnique;
 global using AnimateSecretDoorMessage = Object2PublicVeObPlUnique;
 //global using PlayerPickUpResourceMessage = Object2Public31InObVoInObInObInOb0;
-global using RifleShootMessage = Object2PublicVeObVeVoObVeObVeObVe1;
+global using RifleShootMessage = Object2PublicVeObVeVoObVeObVeObVe2;
 global using KickPlayerMessage = Object2PublicObVoObObObObObObObOb0;
 global using TeleportPlayerMessage = Object2PublicVeObVoVeObVeObVeObVe4;
 global using LobbyPlayerDoEmotionMessage = Object2PublicStObVoStObStObStObSt0;
@@ -221,6 +220,11 @@ internal static class DeobfuscatorExtensions
     {
         return player.GetNetObject().IsLocal;
     }
+
+    public static string GetEmotionID(this LobbyPlayerDoEmotionMessage message)
+    {
+        return message.field_Public_String_0;
+    }
 }
 
 internal static class StaticDeobfuscator
@@ -236,7 +240,6 @@ internal static class StaticDeobfuscator
     public static class BloodyPlayfabBackendAdapter
     {
         public const string InitializeMethod = nameof(PlayfabBackendAdapter.Method_Public_Virtual_Final_New_Void_2);
-        public const string MelRepRequestMethod = nameof(PlayfabBackendAdapter.Method_Public_Virtual_Final_New_Object1PublicVo6_Action_1_Object1PublicVo6_3);
         public const string UpdateLoadoutRequestMethod = nameof(PlayfabBackendAdapter.Method_Public_Virtual_Final_New_Object1PublicVo7_ObjectPublicAcLiAc1ObObObUnique_Action_1_Object1PublicVo7_0);
         public const string GetLoadoutRequestMethod = nameof(PlayfabBackendAdapter.Method_Public_Virtual_Final_New_Object1Public99VoUnique_Action_1_Object1Public99VoUnique_1);
     }
@@ -286,7 +289,7 @@ internal static class StaticDeobfuscator
 
     public static class RifleInventoryItemUtils
     {
-        public const string ShootRifleMethod = nameof(RifleInventoryItem.Method_Protected_Void_Object2PublicVeObVeVoObVeObVeObVe1_PDM_2);
+        public const string ShootRifleMethod = nameof(RifleInventoryItem.Method_Protected_Void_Object2PublicVeObVeVoObVeObVeObVe2_PDM_2);
         public const string PickUpRifleMethod = nameof(RifleInventoryItem.Method_Public_Virtual_Final_New_Void_Action_0);
     }
 
@@ -355,6 +358,14 @@ internal static class StaticDeobfuscator
         public static LobbyPlayerSyncInfoMessage CreateLobbyPlayerSyncInfoMessage(PlayerInfo playerInfo, ActorInfo childInfo, ActorInfo neighborInfo)
         {
             return LobbyPlayerSyncInfoMessage.Method_Public_Static_Object2PublicObObObUnique_ObjectPublicObBoObAcBo1ObStAc1Unique_ObjectPublicISerializableObLoObAcLoUnique_ObjectPublicISerializableObLoObAcLoUnique_0(playerInfo, childInfo, neighborInfo);
+        }
+
+        public static LobbyPlayerDoEmotionMessage CreateLobbyPlayerDoEmotionMessage(string emotionID)
+        {
+            return new LobbyPlayerDoEmotionMessage()
+            {
+                field_Public_String_0 = emotionID
+            };
         }
     }
 }
