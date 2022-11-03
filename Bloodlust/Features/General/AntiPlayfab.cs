@@ -103,5 +103,5 @@ internal static class AntiPlayfab
         Logger.Msg("Loadout saved locally");
     }
 
-    delegate bool GetLoadoutPatchDel(Il2CppSystem.Action<GetLoadoutRequestResult> callback, ref GetLoadoutRequestResult __result);
+    private delegate bool GetLoadoutPatchDel(Il2CppSystem.Action<GetLoadoutRequestResult> callback, ref GetLoadoutRequestResult __result);
 }

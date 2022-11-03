@@ -1,10 +1,8 @@
 ﻿using Bloodlust.Deobfuscation;
-using Bloodlust.Deobfuscation.Enums;
 using Bloodlust.Menu;
 using Bloodlust.Menu.Elements;
 using GameModes.GameplayMode.Cameras;
 using MelonLoader;
-using System.Collections;
 using UnityEngine;
 
 namespace Bloodlust.Features.MenuCategories;
