@@ -67,6 +67,9 @@ public static class Identity
 
         foreach (var emotion in _allEmotions)
         {
+            if (value)
+                emotion.Item1.hasIcon = true;
+
             emotion.Item1.isDefaultValue = value || emotion.Item3;
         }
     }
