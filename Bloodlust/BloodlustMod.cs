@@ -20,7 +20,6 @@ public class BloodlustMod : MelonMod
 
         GameController.Initialize();
         Buffs.Initialize();
-        SkillModifiers.Initialize();
         ItemExploits.Initialize();
         VisualAdvantages.Initialize();
     }

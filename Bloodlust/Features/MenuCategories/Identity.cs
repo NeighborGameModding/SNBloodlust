@@ -39,11 +39,11 @@ public static class Identity
         info.SetName(_nameToSetTextBox.Text);
         MenuScenaryUtils.GetInstance().lobbyPlayerCharacter.RefreshName();
 
-        var player = BloodyPlayerController.GetLocalLobbyPlayer();
-        if (player == null)
-            return;
+        //var player = BloodyPlayerController.GetLocalLobbyPlayer();
+        //if (player == null)
+        //    return;
 
-        player.GetNetObject().SendMessage(Messages.CreateLobbyPlayerSyncInfoMessage(info, player.field_Public_ObjectPublicISerializableObLoObAcLoUnique_0, player.field_Public_ObjectPublicISerializableObLoObAcLoUnique_1));
+        //player.GetNetObject().SendMessage(Messages.CreateLobbyPlayerSyncInfoMessage(info, player.field_Public_ObjectPublicISerializableObLoObAcLoUnique_0, player.field_Public_ObjectPublicISerializableObLoObAcLoUnique_1));
     }
 
     private static void OnToggleCrossEmotes(bool value)

@@ -7,6 +7,7 @@ using GameModes.GameplayMode.Levels.Basement.Objectives;
 using HarmonyLib;
 using MelonLoader;
 using System.Collections.Generic;
+using UnhollowerRuntimeLib;
 using UnityEngine;
 
 namespace Bloodlust.Features.MenuCategories;
@@ -155,18 +156,16 @@ public static class VisualAdvantages
         }
     }
 
+    private static Il2CppSystem.Type _inventoryItemType = Il2CppType.Of<InventoryItem>();
+
     [HarmonyPatch(typeof(InventoryItem), nameof(InventoryItem.LocalInit))]
     [HarmonyPostfix]
     private static void OnItemSpawn(InventoryItem __instance)
     {
-        _items.Add(new()
-        {
-            Item = __instance,
-            GameObject = __instance.gameObject,
-            Transform = __instance.transform,
-            GUILabel = new(FormatItemGUILabel(__instance)),
-            IsKey = __instance.TryCast<KeyInventoryItem>()
-        });
+        if (!_inventoryItemType.IsAssignableFrom(__instance.GetIl2CppType())) // Patch verification for when Harmony fucks up
+            return;
+
+        _items.Add(new(__instance, new(FormatItemGUILabel(__instance)), __instance.TryCast<KeyInventoryItem>() != null));
     }
 
     private static string FormatItemGUILabel(InventoryItem item)
@@ -220,5 +219,14 @@ public static class VisualAdvantages
         public Transform Transform;
         public GUIContent GUILabel;
         public bool IsKey;
+
+        public CachedItem(InventoryItem item, GUIContent label, bool isKey)
+        {
+            Item = item;
+            GameObject = item.gameObject;
+            Transform = item.transform;
+            GUILabel = label;
+            IsKey = isKey;
+        }
     }
 }

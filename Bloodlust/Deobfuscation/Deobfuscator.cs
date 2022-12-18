@@ -12,7 +12,7 @@ global using PlayerBuff = EnumPublicSealedvaSTCAGLCADITODIKNSLUnique;
 
 global using PlayerController = ObjectPublicObLi1PlInPlInObLi1Unique;
 global using PlayfabBackendAdapter = ObjectPublicStObStDi2SiObDi2StUnique;
-global using UpdateLoadoutRequestResult = Object1PublicVo7;
+global using UpdateLoadoutRequestResult = Object1PublicVo8;
 global using Loadout = ObjectPublicAcLiAc1ObObObUnique;
 global using GetLoadoutRequestResult = Object1Public99VoUnique;
 global using LoadoutSerializer = h5ay7rju46La5doyt5jtndrdfjf;
@@ -21,7 +21,7 @@ global using Lobby = ObjectPublicStObInObBoBoInObBoObUnique;
 global using PlayerResourceManager = Object1PublicAbstractAcObSkObBoLiOb1NuObUnique;
 global using SlingshotManager = Object2PublicObSiInSlBoScInBoSlUnique;
 global using PlayerInfo = ObjectPublicObBoObAcBo1ObStAc1Unique;
-global using EncryptedString = ValueTypePublicSealedObBy_sVoStByVoVoUnique;
+global using EncryptedString = ValueTypePublicSealedObBy_sVoStVoByVoUnique;
 global using ActorInfo = ObjectPublicISerializableObLoObAcLoUnique;
 global using GameContext = ObjectPublicObStObLi1ObMaLi1BoUnique;
 
@@ -36,7 +36,7 @@ global using KeyPickedUpMessage = Object2PublicKeObKeUnique;
 //global using KeycardDoorUnlockedMessage = Object2PublicIn31Ob31InObVo31InObUnique;
 //global using LockUnlockedMessage = Object2Public3150PlObVo50PlObPl50Unique;
 global using UpdateMatchSettingsMessage = Object2PublicMaUnique;
-global using LobbyPlayerSyncInfoMessage = Object2PublicObObObUnique;
+global using LobbyPlayerSyncInfoMessage = Object2PublicObBoObObObObUnique;
 //global using LobbyPlayerStateSyncMessage = Object2Public60ObVo60Ob60Ob60Ob60Unique;
 global using SpawnActorMessage = Object2PublicStObObUnique; // ???
 global using PlayerJumpMessage = Object3PublicVo145;
@@ -85,9 +85,10 @@ namespace Bloodlust.Deobfuscation;
 
 internal static class DeobfuscatorExtensions
 {
-    public static void SendMessage(this HoloNetObject obj, HoloNetObjectMessage message, MessageTarget target = MessageTarget.All)
+    public static void SendMessage(this HoloNetObject obj, HoloNetObjectMessage message, MessageTarget target = MessageTarget.All, bool reliable = true)
     {
-        obj.Method_Public_Void_Object1PublicObBoObUnique_EnumPublicSealedva5v1_0(message, (OriginalMessageTarget)target);
+        message.field_Public_ValueTypePublicSealedObauUIobBoObBoObBoUnique_0 = obj.oid;
+        ObjectPublicOb8459Ob617057203317Unique.prop_ObjectPublicOb8459Ob617057203317Unique_0.field_Public_ObjectPublicBoLi1ObHaTy1ObUnique_0.Method_Public_Void_ObjectPublicAbstractDoBoObBoSiObBoObBoObUnique_EnumPublicSealedva5v1_Boolean_1(message, (OriginalMessageTarget)target, reliable);
     }
 
     public static void SetResultReceived<T>(this T requestResult, Il2CppSystem.Action<T> callback) where T : ObjectPublicBoObStAc1TCBoUnique<T>
@@ -155,7 +156,7 @@ internal static class DeobfuscatorExtensions
 
     public static string Decrypt(this EncryptedString str)
     {
-        return ObjectPublicAbstractSealedStObStOb0.Method_Public_Static_String_ValueTypePublicSealedObBy_sVoStByVoVoUnique_PDM_0(str);
+        return ObjectPublicAbstractSealedStObStOb0.Method_Public_Static_String_ValueTypePublicSealedObBy_sVoStVoByVoUnique_PDM_0(str);
     }
 
     public static EncryptedString Encrypt(this string str)
@@ -168,22 +169,22 @@ internal static class DeobfuscatorExtensions
 
     public static string GetName(this PlayerInfo player)
     {
-        return player.field_Public_ValueTypePublicSealedObBy_sVoStByVoVoUnique_2.Decrypt();
+        return player.field_Public_ValueTypePublicSealedObBy_sVoStVoByVoUnique_2.Decrypt();
     }
 
     public static string GetID(this PlayerInfo player)
     {
-        return player.field_Public_ValueTypePublicSealedObBy_sVoStByVoVoUnique_0.Decrypt();
+        return player.field_Public_ValueTypePublicSealedObBy_sVoStVoByVoUnique_0.Decrypt();
     }
 
     public static void SetName(this PlayerInfo player, string name)
     {
-        player.field_Public_ValueTypePublicSealedObBy_sVoStByVoVoUnique_2 = name.Encrypt();
+        player.field_Public_ValueTypePublicSealedObBy_sVoStVoByVoUnique_2 = name.Encrypt();
     }
 
     public static void SetID(this PlayerInfo player, string id)
     {
-        player.field_Public_ValueTypePublicSealedObBy_sVoStByVoVoUnique_0 = id.Encrypt();
+        player.field_Public_ValueTypePublicSealedObBy_sVoStVoByVoUnique_0 = id.Encrypt();
     }
 
     public static ActorClassInfo GetActorClassInfo(this Actor actor)
@@ -240,8 +241,8 @@ internal static class StaticDeobfuscator
     public static class BloodyPlayfabBackendAdapter
     {
         public const string InitializeMethod = nameof(PlayfabBackendAdapter.Method_Public_Virtual_Final_New_Void_2);
-        public const string UpdateLoadoutRequestMethod = nameof(PlayfabBackendAdapter.Method_Public_Virtual_Final_New_Object1PublicVo7_ObjectPublicAcLiAc1ObObObUnique_Action_1_Object1PublicVo7_0);
-        public const string GetLoadoutRequestMethod = nameof(PlayfabBackendAdapter.Method_Public_Virtual_Final_New_Object1Public99VoUnique_Action_1_Object1Public99VoUnique_1);
+        public const string UpdateLoadoutRequestMethod = nameof(PlayfabBackendAdapter.Method_Public_Virtual_Final_New_Object1PublicVo8_ObjectPublicAcLiAc1ObObObUnique_Action_1_Object1PublicVo8_0);
+        public const string GetLoadoutRequestMethod = nameof(PlayfabBackendAdapter.Method_Public_Virtual_Final_New_Object1Public99VoUnique_Action_1_Object1Public99VoUnique_0);
     }
 
     public static class BloodyPreloadScreen
@@ -355,10 +356,10 @@ internal static class StaticDeobfuscator
             };
         }
 
-        public static LobbyPlayerSyncInfoMessage CreateLobbyPlayerSyncInfoMessage(PlayerInfo playerInfo, ActorInfo childInfo, ActorInfo neighborInfo)
-        {
-            return LobbyPlayerSyncInfoMessage.Method_Public_Static_Object2PublicObObObUnique_ObjectPublicObBoObAcBo1ObStAc1Unique_ObjectPublicISerializableObLoObAcLoUnique_ObjectPublicISerializableObLoObAcLoUnique_0(playerInfo, childInfo, neighborInfo);
-        }
+        //public static LobbyPlayerSyncInfoMessage CreateLobbyPlayerSyncInfoMessage(PlayerInfo playerInfo, ActorInfo childInfo, ActorInfo neighborInfo)
+        //{
+        //    return LobbyPlayerSyncInfoMessage.Method_Public_Static_Object2PublicObBoObObObObUnique_ObjectPublicObBoObAcBo1ObStAc1Unique_ObjectPublicISerializableObLoObAcLoUnique_ObjectPublicISerializableObLoObAcLoUnique_ObjectPublicISerializableObLoObAcLoUnique_EnumPublicSealedvaWISPSUAU5vUnique_Boolean_0(playerInfo, childInfo, neighborInfo);
+        //}
 
         public static LobbyPlayerDoEmotionMessage CreateLobbyPlayerDoEmotionMessage(string emotionID)
         {
