@@ -1,3 +1,6 @@
+# W.I.P.
+The menu is still deep work-in-progress, and there are no public pre-releases available yet.
+
 # Bloodlust
 An Open-Source Mod Menu for the game called SN
 
