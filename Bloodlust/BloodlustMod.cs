@@ -10,6 +10,7 @@ public class BloodlustMod : MelonMod
 {
     public override void OnInitializeMelon()
     {
+        GameEvents.Initialize();
         AntiPlayfab.Initialize();
 
         BloodlustMenu.Initialize();

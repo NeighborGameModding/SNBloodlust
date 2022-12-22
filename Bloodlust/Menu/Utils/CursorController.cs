@@ -1,10 +1,10 @@
 ﻿using HarmonyLib;
 using MelonLoader;
+using System;
 using UnityEngine;
 
 namespace Bloodlust.Menu.Utils;
 
-[HarmonyPatch]
 public static class CursorController
 {
     private static bool _cursorModifier;
@@ -44,10 +44,17 @@ public static class CursorController
         }
 
         _initialized = true;
+
+        if (_disabled)
+            return;
+
+        Instance.HarmonyInstance.Patch(typeof(Cursor).GetProperty(nameof(Cursor.visible)).GetSetMethod(), new(new Func<bool, bool>(CursorVisiblePatch).Method));
+        Instance.HarmonyInstance.Patch(typeof(Cursor).GetProperty(nameof(Cursor.lockState)).GetSetMethod(), new(new Func<CursorLockMode, bool>(CursorLockPatch).Method));
+
+        CursorVisiblePatch(Cursor.visible);
+        CursorLockPatch(Cursor.lockState);
     }
 
-    [HarmonyPatch(typeof(Cursor), nameof(Cursor.visible), MethodType.Setter)]
-    [HarmonyPrefix]
     private static bool CursorVisiblePatch([HarmonyArgument(0)] bool visible)
     {
         if (_isUpdating)
@@ -57,8 +64,6 @@ public static class CursorController
         return !_cursorModifier;
     }
 
-    [HarmonyPatch(typeof(Cursor), nameof(Cursor.lockState), MethodType.Setter)]
-    [HarmonyPrefix]
     private static bool CursorLockPatch([HarmonyArgument(0)] CursorLockMode lockMode)
     {
         if (_isUpdating)

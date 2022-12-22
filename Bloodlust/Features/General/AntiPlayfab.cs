@@ -6,7 +6,6 @@ using MelonLoader;
 
 namespace Bloodlust.Features.General;
 
-[HarmonyPatch(typeof(PlayfabBackendAdapter))]
 internal static class AntiPlayfab
 {
     private static readonly string _loadoutSaveFilePath = Path.Combine(MelonUtils.UserDataDirectory, "Loadout.json");
@@ -22,6 +21,8 @@ internal static class AntiPlayfab
 
     internal static void Initialize()
     {
+        Instance.HarmonyInstance.Patch(typeof(PlayfabBackendAdapter).GetMethod(BloodyPlayfabBackendAdapter.UpdateLoadoutRequestMethod), new(new UpdateLoadoutRequestPatchDel(UpdateLoadoutRequestPatch).Method));
+
         HarmonyUtils.PatchObfuscated(typeof(PlayfabBackendAdapter), BloodyPlayfabBackendAdapter.GetLoadoutRequestMethod, new(new GetLoadoutPatchDel(GetLoadoutRequestPatch).Method));
     }
 
@@ -42,8 +43,6 @@ internal static class AntiPlayfab
         return false;
     }
 
-    [HarmonyPatch(BloodyPlayfabBackendAdapter.UpdateLoadoutRequestMethod)]
-    [HarmonyPrefix]
     private static bool UpdateLoadoutRequestPatch([HarmonyArgument(0)] Loadout loadout, [HarmonyArgument(1)] Il2CppSystem.Action<UpdateLoadoutRequestResult> callback, ref UpdateLoadoutRequestResult __result)
     {
         Logger.Msg("Prevented a loadout update request");
@@ -104,4 +103,5 @@ internal static class AntiPlayfab
     }
 
     private delegate bool GetLoadoutPatchDel(Il2CppSystem.Action<GetLoadoutRequestResult> callback, ref GetLoadoutRequestResult __result);
+    private delegate bool UpdateLoadoutRequestPatchDel(Loadout loadout, Il2CppSystem.Action<UpdateLoadoutRequestResult> callback, ref UpdateLoadoutRequestResult __result);
 }

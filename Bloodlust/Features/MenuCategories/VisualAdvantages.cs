@@ -6,13 +6,13 @@ using GameModes.GameplayMode.Interactables.InventoryItems.Base;
 using GameModes.GameplayMode.Levels.Basement.Objectives;
 using HarmonyLib;
 using MelonLoader;
+using System;
 using System.Collections.Generic;
 using UnhollowerRuntimeLib;
 using UnityEngine;
 
 namespace Bloodlust.Features.MenuCategories;
 
-[HarmonyPatch]
 public static class VisualAdvantages
 {
     private static BloodlustMenu.Category _category;
@@ -37,6 +37,18 @@ public static class VisualAdvantages
         });
 
         GameEvents.OnGameModeChanged.Subscribe(OnGameModeChanged);
+
+        Instance.HarmonyInstance.Patch(typeof(InventoryItem).GetMethod(nameof(InventoryItem.LocalInit)), postfix: new(new Action<InventoryItem>(OnItemSpawnPatch).Method));
+    }
+
+    private static Il2CppSystem.Type _inventoryItemType = Il2CppType.Of<InventoryItem>();
+
+    private static void OnItemSpawnPatch(InventoryItem __instance)
+    {
+        if (!_inventoryItemType.IsAssignableFrom(__instance.GetIl2CppType())) // Patch verification for when Harmony fucks up
+            return;
+
+        _items.Add(new(__instance, new(FormatItemGUILabel(__instance)), __instance.TryCast<KeyInventoryItem>() != null));
     }
 
     private static void OnGameModeChanged(GameMode gameMode)
@@ -154,18 +166,6 @@ public static class VisualAdvantages
 
             DrawESPBox(pos, 200, _revealClasses.On && player.IsNeighbor() ? new(1f, 0.2f, 0.2f, 0.3f) : new(0.2f, 0.2f, 1f, 0.3f), new(text), _revealClasses.On ? 3 : 2);
         }
-    }
-
-    private static Il2CppSystem.Type _inventoryItemType = Il2CppType.Of<InventoryItem>();
-
-    [HarmonyPatch(typeof(InventoryItem), nameof(InventoryItem.LocalInit))]
-    [HarmonyPostfix]
-    private static void OnItemSpawn(InventoryItem __instance)
-    {
-        if (!_inventoryItemType.IsAssignableFrom(__instance.GetIl2CppType())) // Patch verification for when Harmony fucks up
-            return;
-
-        _items.Add(new(__instance, new(FormatItemGUILabel(__instance)), __instance.TryCast<KeyInventoryItem>() != null));
     }
 
     private static string FormatItemGUILabel(InventoryItem item)

@@ -8,7 +8,6 @@ using Ui.Screens.CustomGame;
 
 namespace Bloodlust.Features.MenuCategories;
 
-[HarmonyPatch]
 public static class LobbyList
 {
     private static BloodlustMenu.Category _category;

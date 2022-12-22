@@ -6,7 +6,6 @@ using System;
 
 namespace Bloodlust.Features.MenuCategories;
 
-[HarmonyPatch]
 public static class LobbyMaster
 {
     private static BloodlustMenu.Category _category;
